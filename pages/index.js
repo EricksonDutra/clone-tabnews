@@ -18,7 +18,7 @@ function Home() {
           className="cursor-pointer hover:scale-105 transition-transform"
         />
 
-        <hr/>
+        <hr />
 
         <Image
           src="https://png.pngtree.com/png-clipart/20240826/original/pngtree-clipart-of-sad-emoji-png-image_15854157.png"
@@ -31,7 +31,9 @@ function Home() {
       </div>
 
       <h1 className="mt-6 text-xl">
-        {reacao ? "😄 Que bom que gostou!" : "🙁 Poxa vou me esforçar para melhorar..."}
+        {reacao
+          ? "😄 Que bom que gostou!"
+          : "🙁 Poxa vou me esforçar para melhorar..."}
       </h1>
     </div>
   );
