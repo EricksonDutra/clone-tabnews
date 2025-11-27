@@ -6,7 +6,9 @@ function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-red-500 text-white">
-      <h1 className="text-2xl font-bold mb-4">Gostou do site?</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Gostou do site? (EM CONSTRUÇÃO)
+      </h1>
 
       <div className="flex gap-8">
         <Image
