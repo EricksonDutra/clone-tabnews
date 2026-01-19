@@ -4,7 +4,7 @@ beforeAll(cleanDatabase);
 
 async function cleanDatabase() {
   await orchestrator.waitForAllServices();
-    await orchestrator.clearDatabase();
+  await orchestrator.clearDatabase();
 }
 
 describe("POST /api/v1/migrations", () => {
