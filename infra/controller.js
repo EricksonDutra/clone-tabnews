@@ -2,8 +2,9 @@ import { InternalServerError, MethodNotAllowedError } from "infra/errors";
 
 function onErrorHandler(error, req, res) {
   const publicErrorObject = new InternalServerError({
-    statusCode: error.statusCode, 
-    cause: error });
+    statusCode: error.statusCode,
+    cause: error,
+  });
 
   console.log(publicErrorObject);
 
