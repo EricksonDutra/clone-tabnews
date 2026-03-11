@@ -1,7 +1,5 @@
+import orchestrator from "tests/orchestrator";
 import {version as uuidVersion } from "uuid";
-
-import orchestrator from "../orchestrator";
-
 
 beforeAll(async ()=> {
     await orchestrator.waitForAllServices();
@@ -77,8 +75,8 @@ describe("POST /api/v1/users", () => {
         const responseBody2 = await response2.json();
         expect(responseBody2).toEqual({
           name: "ValidationError",
-          message: "O email informado já está em uso.",
-          action: "Por favor, utilize outro email.",
+          message: "O email informado já está sendo utilizado.",
+          action: "Utilize outro email para realizar o cadastro.",
           status_code: 400
         });
 
@@ -117,8 +115,8 @@ describe("POST /api/v1/users", () => {
       const responseBody2 = await response2.json();
       expect(responseBody2).toEqual({
         name: "ValidationError",
-        message: "O username informado já está em uso.",
-        action: "Por favor, utilize outro username.",
+        message: "O username informado já está sendo utilizado.",
+        action: "Utilize outro username para realizar o cadastro.",
         status_code: 400
       });
 
