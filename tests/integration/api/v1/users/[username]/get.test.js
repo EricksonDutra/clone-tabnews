@@ -14,7 +14,6 @@ describe("GET /api/v1/users/[username]", () => {
         username: "MesmoCase",
       });
 
-
       const response = await fetch(
         "http://localhost:3000/api/v1/users/MesmoCase",
       );
@@ -39,9 +38,8 @@ describe("GET /api/v1/users/[username]", () => {
 
     test("With case mismatch", async () => {
       await orchestrator.createUser({
-          username: "CaseDiferente",
-        });
-
+        username: "CaseDiferente",
+      });
 
       const response = await fetch(
         "http://localhost:3000/api/v1/users/casediferente",
