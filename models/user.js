@@ -39,8 +39,7 @@ async function create(userInputValues) {
   await hashPasswordInObject(userInputValues);
 
   const newUser = await runInsertQuery(userInputValues);
-  return newUser;  
-
+  return newUser;
 
   async function runInsertQuery(userInputValues) {
     const results = await database.query({
@@ -75,7 +74,7 @@ async function update(username, userInputValues) {
   if ("password" in userInputValues) {
     await hashPasswordInObject(userInputValues);
   }
-  
+
   const userWithUpdatedValues = { ...currentUser, ...userInputValues };
 
   const updatedUser = await runUpdateQuery(userWithUpdatedValues);
@@ -107,7 +106,6 @@ async function update(username, userInputValues) {
   }
 }
 
-
 async function validateUniqueUsername(username) {
   const results = await database.query({
     text: `
@@ -129,9 +127,9 @@ async function validateUniqueUsername(username) {
   }
 }
 
-  async function validateUniqueEmail(email) {
-    const results = await database.query({
-      text: `
+async function validateUniqueEmail(email) {
+  const results = await database.query({
+    text: `
         SELECT
           email
         FROM
@@ -139,22 +137,21 @@ async function validateUniqueUsername(username) {
         WHERE
           LOWER(email) = LOWER($1)
         ;`,
-      values: [email],
+    values: [email],
+  });
+
+  if (results.rowCount > 0) {
+    throw new ValidationError({
+      message: "O email informado já está sendo utilizado.",
+      action: "Utilize outro email para realizar esta operação.",
     });
-
-    if (results.rowCount > 0) {
-      throw new ValidationError({
-        message: "O email informado já está sendo utilizado.",
-        action: "Utilize outro email para realizar esta operação.",
-      });
-    }
   }
+}
 
-  async function hashPasswordInObject(userInputValues) {
-    const hashedPassword = await password.hash(userInputValues.password);
-    userInputValues.password = hashedPassword;
-  }
-  
+async function hashPasswordInObject(userInputValues) {
+  const hashedPassword = await password.hash(userInputValues.password);
+  userInputValues.password = hashedPassword;
+}
 
 const user = {
   create,
