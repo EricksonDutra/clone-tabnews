@@ -1,6 +1,7 @@
 import { version as uuidVersion } from "uuid";
 import orchestrator from "tests/orchestrator.js";
 
+
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
   await orchestrator.clearDatabase();
@@ -36,7 +37,7 @@ describe("GET /api/v1/users/[username]", () => {
         id: response2Body.id,
         username: "MesmoCase",
         email: "mesmo.case@curso.dev",
-        password: "senha123",
+        password: response2Body.password,
         created_at: response2Body.created_at,
         updated_at: response2Body.updated_at,
       });
@@ -44,6 +45,7 @@ describe("GET /api/v1/users/[username]", () => {
       expect(uuidVersion(response2Body.id)).toBe(4);
       expect(Date.parse(response2Body.created_at)).not.toBeNaN();
       expect(Date.parse(response2Body.updated_at)).not.toBeNaN();
+
     });
 
     test("With case mismatch", async () => {
@@ -73,7 +75,7 @@ describe("GET /api/v1/users/[username]", () => {
         id: response2Body.id,
         username: "CaseDiferente",
         email: "case.diferente@curso.dev",
-        password: "senha123",
+        password: response2Body.password,
         created_at: response2Body.created_at,
         updated_at: response2Body.updated_at,
       });
