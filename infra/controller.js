@@ -7,7 +7,11 @@ import {
 } from "infra/errors";
 
 function onErrorHandler(error, req, res) {
-  if (error instanceof ValidationError || error instanceof NotFoundError || error instanceof UnauthorizedError) {
+  if (
+    error instanceof ValidationError ||
+    error instanceof NotFoundError ||
+    error instanceof UnauthorizedError
+  ) {
     return res.status(error.statusCode).json(error);
   }
 
