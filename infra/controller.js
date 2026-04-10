@@ -1,3 +1,6 @@
+import * as cookie from "cookie";
+import session from "models/session.js";
+
 import {
   InternalServerError,
   MethodNotAllowedError,
@@ -6,13 +9,18 @@ import {
   UnauthorizedError,
 } from "infra/errors";
 
-function onErrorHandler(error, req, res) {
+function onNoMatchHandler(request, response) {
+  const publicErrorObject = new MethodNotAllowedError();
+  response.status(publicErrorObject.statusCode).json(publicErrorObject);
+}
+
+function onErrorHandler(error, request, response) {
   if (
     error instanceof ValidationError ||
     error instanceof NotFoundError ||
     error instanceof UnauthorizedError
   ) {
-    return res.status(error.statusCode).json(error);
+    return response.status(error.statusCode).json(error);
   }
 
   const publicErrorObject = new InternalServerError({
@@ -21,12 +29,29 @@ function onErrorHandler(error, req, res) {
 
   console.error(publicErrorObject);
 
-  res.status(publicErrorObject.statusCode).json(publicErrorObject);
+  response.status(publicErrorObject.statusCode).json(publicErrorObject);
 }
 
-function onNoMatchHandler(req, res) {
-  const publicErrorObjtect = new MethodNotAllowedError();
-  res.status(publicErrorObjtect.statusCode).json(publicErrorObjtect);
+async function setSessionCookie(sessionToken, response) {
+  const setCookie = cookie.serialize("session_id", sessionToken, {
+    path: "/",
+    maxAge: session.EXPIRATION_IN_MILLISECONDS / 1000,
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+  });
+
+  response.setHeader("Set-Cookie", setCookie);
+}
+
+async function clearSessionCookie(response) {
+  const setCookie = cookie.serialize("session_id", "invalid", {
+    path: "/",
+    maxAge: -1,
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+  });
+
+  response.setHeader("Set-Cookie", setCookie);
 }
 
 const controller = {
@@ -34,6 +59,8 @@ const controller = {
     onNoMatch: onNoMatchHandler,
     onError: onErrorHandler,
   },
+  setSessionCookie,
+  clearSessionCookie,
 };
 
 export default controller;
