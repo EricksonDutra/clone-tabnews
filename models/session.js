@@ -47,7 +47,7 @@ async function create(userId) {
     const results = await database.query({
       text: `
         INSERT INTO
-          sessions (token, user_id, expires_at)
+          sessions (token, user_id, expires_at) 
         VALUES
           ($1, $2, $3)
         RETURNING
@@ -83,11 +83,38 @@ async function expireById(sessionId) {
   }
 }
 
+async function renew(sessionId) {
+  const expiresAt = new Date(Date.now() + EXPIRATION_IN_MILLISECONDS);
+
+  const renewedSessionObject = runUpateQuery(sessionId, expiresAt);
+  return renewedSessionObject;
+
+  async function runUpateQuery(sessionId, expiresAt) {
+    const results = await database.query({
+      text: `
+        UPDATE
+          sessions
+        SET
+          expires_at = $2,
+          updated_at = NOW()
+        WHERE
+          id = $1
+        RETURNING
+          *
+      ;`,
+      values: [sessionId, expiresAt],
+    });
+
+    return results.rows[0];
+  }
+}
+
 const session = {
   create,
-  EXPIRATION_IN_MILLISECONDS,
   findOneValidByToken,
   expireById,
+  renew,
+  EXPIRATION_IN_MILLISECONDS,
 };
 
 export default session;
