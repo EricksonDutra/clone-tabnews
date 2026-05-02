@@ -4,11 +4,11 @@ import webserver from "infra/webserver";
 
 const EXPIRATION_IN_MILLISECONDS = 60 * 15 * 1000; // 15 minutos
 
-async function findOneByUserId(userId) {
-  const newToken = await runSelectQuery(userId);
-  return newToken;
+async function findOneByValidId(tokenId) {
+  const activationTokenObject = await runSelectQuery(tokenId);
+  return activationTokenObject;
 
-  async function runSelectQuery(userId) {
+  async function runSelectQuery(tokenId) {
     const results = await database.query({
       text: `
       SELECT
@@ -16,12 +16,15 @@ async function findOneByUserId(userId) {
       FROM
         user_activation_token
       WHERE
-        user_id = $1
+        id = $1
+        AND expires_at > NOW()
+        AND used_at IS NULL
       LIMIT
         1
       ;`,
-      values: [userId],
+      values: [tokenId],
     });
+
     return results.rows[0];
   }
 }
@@ -65,7 +68,7 @@ Equipe devs`,
 
 const activation = {
   create,
-  findOneByUserId,
+  findOneByValidId,
   sendEmailToUser,
 };
 
