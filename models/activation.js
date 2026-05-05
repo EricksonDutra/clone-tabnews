@@ -68,8 +68,6 @@ Equipe devs`,
 }
 
 async function markTokenAsUsed(activationTokenId) {
-  console.log(`activationTokenId >> ${activationTokenId}`);
-
   const usedActivationToken = await runUpdateQuery(activationTokenId);
   return usedActivationToken;
 
@@ -88,7 +86,6 @@ async function markTokenAsUsed(activationTokenId) {
       `,
       values: [activationTokenId],
     });
-    console.log(`results >> ${results}`);
 
     return results.rows[0];
   }
