@@ -114,6 +114,8 @@ describe("DELETE /api/v1/sessions", () => {
         httpOnly: true,
       });
 
+      console.log(sessionObject.token);
+
       // Double check assertions
       const doubleCheckResponse = await fetch(
         "http://localhost:3000/api/v1/user",
