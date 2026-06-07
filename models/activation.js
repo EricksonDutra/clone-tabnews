@@ -124,6 +124,7 @@ const activation = {
   findOneByValidId,
   sendEmailToUser,
   markTokenAsUsed,
+  EXPIRATION_IN_MILLISECONDS,
 };
 
 export default activation;
