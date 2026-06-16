@@ -1,7 +1,7 @@
 import { version as uuidVersion } from "uuid";
 import activation from "models/activation";
 import orchestrator from "tests/orchestrator";
-import { user } from "pg/lib/defaults";
+import user from "models/user";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
@@ -25,8 +25,9 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
 
       expect(responseBody).toEqual({
         name: "NotFoundError",
-        message: "O token de ativação utilizado não foi encontrado no sistema",
-        action: "Faça um novo cadastro",
+        message:
+          "O token de ativação utilizado não foi encontrado no sistema ou expirou.",
+        action: "Faça um novo cadastro.",
         status_code: 404,
       });
     });
@@ -37,12 +38,12 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
       });
 
       const createdUser = await orchestrator.createUser();
-      const expiredActivationToken = await activation.create(createdUser);
+      const expiredActivationToken = await activation.create(createdUser.id);
 
       jest.useRealTimers();
 
       const response = await fetch(
-        `http://localhost:3000/api/v1/activations/${expiredActivationToken}`,
+        `http://localhost:3000/api/v1/activations/${expiredActivationToken.id}`,
         {
           method: "PATCH",
         },
@@ -55,18 +56,18 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
       expect(responseBody).toEqual({
         name: "NotFoundError",
         message:
-          "O token de ativação utilizado não foi encontrado no sistema ou expirou",
-        action: "Faça um novo cadastro",
+          "O token de ativação utilizado não foi encontrado no sistema ou expirou.",
+        action: "Faça um novo cadastro.",
         status_code: 404,
       });
     });
 
     test("With already used token", async () => {
       const createdUser = await orchestrator.createUser();
-      const expiredActivationToken = await activation.create(createdUser);
+      const activationToken = await activation.create(createdUser.id);
 
       const response1 = await fetch(
-        `http://localhost:3000/api/v1/activations/${expiredActivationToken}`,
+        `http://localhost:3000/api/v1/activations/${activationToken.id}`,
         {
           method: "PATCH",
         },
@@ -75,29 +76,31 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
       expect(response1.status).toBe(200);
 
       const response2 = await fetch(
-        `http://localhost:3000/api/v1/activations/${expiredActivationToken}`,
+        `http://localhost:3000/api/v1/activations/${activationToken.id}`,
         {
           method: "PATCH",
         },
       );
 
-      expect(response2.status).toBe(4004);
+      expect(response2.status).toBe(404);
 
-      expect(response2).toEqual({
+      const response2Body = await response2.json();
+
+      expect(response2Body).toEqual({
         name: "NotFoundError",
         message:
-          "O token de ativação utilizado não foi encontrado no sistema ou expirou",
-        action: "Faça um novo cadastro",
+          "O token de ativação utilizado não foi encontrado no sistema ou expirou.",
+        action: "Faça um novo cadastro.",
         status_code: 404,
       });
     });
 
     test("With valid token", async () => {
       const createdUser = await orchestrator.createUser();
-      const activationToken = await activation.create(createdUser);
+      const activationToken = await activation.create(createdUser.id);
 
       const response = await fetch(
-        `http://localhost:3000/api/v1/activations/${activationToken}`,
+        `http://localhost:3000/api/v1/activations/${activationToken.id}`,
         {
           method: "PATCH",
         },
@@ -110,9 +113,9 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
       expect(responseBody).toEqual({
         id: activationToken.id,
         used_at: responseBody.used_at,
-        user_id: activationToken.userid,
-        expires_at: activationToken.expires_at,
-        created_at: activationToken.created_at,
+        user_id: activationToken.user_id,
+        expires_at: activationToken.expires_at.toISOString(),
+        created_at: activationToken.created_at.toISOString(),
         updated_at: responseBody.updated_at,
       });
 
@@ -138,6 +141,7 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
       expect(activatedUser.features).toEqual([
         "create:session",
         "read:session",
+        "update:user",
       ]);
     });
 
@@ -160,8 +164,8 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
 
       expect(responseBody).toEqual({
         name: "ForbiddenError",
-        message: "Você não pode mais utilizar tokens de ativação",
-        action: "Entre em contato com o suporte",
+        message: "Você não pode mais utilizar tokens de ativação.",
+        action: "Entre em contato com o suporte.",
         status_code: 403,
       });
     });

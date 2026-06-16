@@ -159,7 +159,7 @@ describe("Default user", () => {
 
     expect(user2ResponseBody).toEqual({
       name: "ForbiddenError",
-      message: "Você não possui permissão para executar esta ação.",
+      message: "Você não possui permissão para realizar esta ação.",
       action: 'Verifique se o seu usuário possui a feature "create:user"',
       status_code: 403,
     });
