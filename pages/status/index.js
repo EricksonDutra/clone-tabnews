@@ -9,7 +9,7 @@ async function fetchAPI(key) {
 export default function StatusPage() {
   return (
     <>
-      <h1>Status</h1>;
+      <h1>Status</h1>
       <UpadatedAt />
       <DatabaseStatus />
     </>
@@ -38,6 +38,8 @@ function DatabaseStatus() {
   let databaseStatusInformation = "Carregando...";
 
   if (!isLoading && data) {
+    console.log(data.dependencies.version);
+
     databaseStatusInformation = (
       <>
         <div>Versão: {data.dependencies.version}</div>

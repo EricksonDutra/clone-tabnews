@@ -65,9 +65,9 @@ async function create(userId) {
 
 async function sendEmailToUser(user, activationToken) {
   await email.send({
-    from: "FinTab <contato@fintab.com.br>",
+    from: `Clone Tab News <contato@${process.env.APP_DOMAIN}>`,
     to: user.email,
-    subject: "Ative seu cadastro no FinTab!",
+    subject: "Ative seu cadastro no Clone TabNews!",
     text: `${user.username}, clique no link abaixo para ativar o seu cadastro
 
 ${webserver.origin}/cadastro/ativar/${activationToken.id}

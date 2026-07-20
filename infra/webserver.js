@@ -6,7 +6,7 @@ function getOrigin() {
   if (process.env.VERCE_ENV === "preview") {
     return `https://${process.env.VERCEL_URL}`;
   }
-  return "https://ericksdutra.com.br";
+  return `https://${process.env.APP_DOMAIN}`;
 }
 
 const webserver = {
