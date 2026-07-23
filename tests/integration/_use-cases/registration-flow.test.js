@@ -106,14 +106,11 @@ describe("Use case: Registration Flow (all successful)", () => {
   });
 
   test("Get user information", async () => {
-    const userResponse = await fetch(
-      `${webserver.origin}/api/v1/activations/${activationTokenId}`,
-      {
-        headers: {
-          cookie: `session_id=${createSessionsResponseBody.token}`,
-        },
+    const userResponse = await fetch(`${webserver.origin}/api/v1/user`, {
+      headers: {
+        cookie: `session_id=${createSessionsResponseBody.token}`,
       },
-    );
+    });
 
     expect(userResponse.status).toBe(200);
 
