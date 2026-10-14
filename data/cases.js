@@ -44,13 +44,16 @@ export const cases = {
       "Negocie a primeira entrega com os envolvidos. Cadastro e confirmação podem ser essenciais; certificados e relatórios avançados podem ter prazo posterior.",
       "Torne a dependência de pagamento visível, atribua um responsável e defina uma data para decidir uma alternativa operacional aceita pelo negócio.",
       "Faça revisões curtas com uma jornada executável. Quando algo mudar, comunique impacto, opções e a decisão necessária, em vez de apenas atualizar uma porcentagem.",
+      "Detalhe atividades, dependências e disponibilidade da equipe. Monte um orçamento com custos realizados e restantes, separando a contingência associada aos riscos.",
+      "Se um certificado automático for solicitado antes do lançamento, registre o pedido e compare incluí-lo agora ou em outra fase. Explique impactos em prazo e custo e encaminhe a decisão a quem pode alterar os compromissos.",
+      "Ao encerrar, registre aceitação, pendências, responsável pela operação e lições aprendidas. Use uma medida de confiabilidade das inscrições para avaliar o resultado após a entrega.",
     ],
     tradeoff:
       "Reduzir escopo preserva o prazo, mas exige alinhamento sobre o que ficará de fora. Acrescentar pessoas perto da entrega pode aumentar o custo de coordenação antes de produzir capacidade útil.",
     evidence:
       "Acompanhe inscrições concluídas, erros de confirmação e tempo de resposta aos participantes. Uma lista de tarefas concluídas não demonstra que a jornada funciona.",
     deliverable:
-      "Monte uma página com objetivo, escopo essencial, dependências, três riscos e critérios de aceite para o lançamento.",
+      "Monte um plano com objetivo, escopo essencial, cronograma, orçamento, três riscos e critérios de aceite. Acrescente um registro de mudança, uma atualização ao patrocinador e um termo de encerramento.",
   },
   "web-mobile": {
     title: "Enviar uma inscrição em uma conexão instável",

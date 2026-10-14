@@ -4,6 +4,9 @@ import { useState } from "react";
 import { areas } from "../../data/studies";
 import { checks } from "../../data/checks";
 import { cases } from "../../data/cases";
+import LearningResources, {
+  ResourceCard,
+} from "../../components/LearningResources";
 import { Footer, Header, Icon, useSaved } from "../../components/StudyUI";
 
 export default function StudyPage({ area }) {
@@ -43,20 +46,32 @@ export default function StudyPage({ area }) {
               <span>
                 <Icon name={area.icon} size={17} /> {area.category}
               </span>
-              <span>3 módulos</span>
-              <span>Conteúdo autoral · trilha introdutória</span>
+              <span>{area.modules.length} módulos</span>
+              <span>
+                {area.contentLabel || "Conteúdo autoral · trilha introdutória"}
+              </span>
             </div>
           </div>
           <div className="detail-emblem">
             <Icon name={area.icon} size={90} />
           </div>
         </section>
+        {area.studyContext && (
+          <details className="case-study">
+            <summary>Sobre os estudos e materiais de referência</summary>
+            <div className="case-study-content">
+              <p>{area.studyContext}</p>
+            </div>
+          </details>
+        )}
         <div className="detail-layout">
           <aside className="study-sidebar">
             <span className="eyebrow">SEU PERCURSO</span>
             <h2>Uma ideia por vez.</h2>
             <div className="progress-label">
-              <span>{completed.length} de 3 concluídos</span>
+              <span>
+                {completed.length} de {area.modules.length} concluídos
+              </span>
               <strong>{percent}%</strong>
             </div>
             <div
@@ -81,7 +96,7 @@ export default function StudyPage({ area }) {
                     {completed.includes(index) ? (
                       <Icon name="check" size={15} />
                     ) : (
-                      `0${index + 1}`
+                      String(index + 1).padStart(2, "0")
                     )}
                   </span>
                   <span>
@@ -110,7 +125,8 @@ export default function StudyPage({ area }) {
           </aside>
           <article className="module-content" key={current}>
             <span className="eyebrow">
-              MÓDULO 0{current + 1} <span className="caption-separator">/</span>{" "}
+              MÓDULO {String(current + 1).padStart(2, "0")}{" "}
+              <span className="caption-separator">/</span>{" "}
               {lesson.time.toUpperCase()}
             </span>
             <h2>{lesson.title}</h2>
@@ -128,6 +144,34 @@ export default function StudyPage({ area }) {
               <span>Uma pergunta para levar com você</span>
               {lesson.question}
             </blockquote>
+            <LearningResources resources={lesson.resources} />
+            {lesson.sources && (
+              <section
+                className="module-sources"
+                aria-label="Materiais de referência"
+              >
+                <h3>
+                  {area.sourceHeading || "Materiais para continuar estudando"}
+                </h3>
+                <ul>
+                  {lesson.sources.map((source) => (
+                    <li key={source.url}>
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {source.title} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p>
+                  {area.sourceAccessNote ||
+                    "As referências seguem as permissões de acesso da fonte original."}
+                </p>
+              </section>
+            )}
             <div className="module-bottom">
               <button
                 className={
@@ -148,7 +192,7 @@ export default function StudyPage({ area }) {
                   ? "Concluído · desfazer"
                   : "Marcar como concluído"}
               </button>
-              {current < 2 && (
+              {current < area.modules.length - 1 && (
                 <button
                   className="text-button"
                   onClick={() => setCurrent(current + 1)}
@@ -177,6 +221,21 @@ export default function StudyPage({ area }) {
             <p>{caseStudy.evidence}</p>
             <h4>Sua entrega</h4>
             <p>{caseStudy.deliverable}</p>
+          </div>
+        </details>
+        <details className="case-study resource-collections">
+          <summary>Canais, cursos e acervos para explorar</summary>
+          <div className="case-study-content">
+            <p>
+              Escolha novos assuntos nas fontes indicadas. Canais e acervos
+              reúnem vários conteúdos; os recursos específicos de cada módulo
+              aparecem junto da atividade.
+            </p>
+            <ul className="resource-list">
+              {area.collections.map((resource) => (
+                <ResourceCard key={resource.id} resource={resource} />
+              ))}
+            </ul>
           </div>
         </details>
         <section className="knowledge-check">

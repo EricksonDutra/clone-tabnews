@@ -25,15 +25,15 @@ export const checks = {
   },
   "gestao-de-projetos": {
     question:
-      "Todas as funcionalidades planejadas foram entregues, mas o problema do usuário continua. O que isso mostra?",
+      "Uma nova funcionalidade foi pedida perto da entrega, com prazo e orçamento já comprometidos. Como decidir?",
     options: [
-      "Entregar escopo e alcançar resultado são coisas diferentes.",
-      "O projeto não precisa mais ser avaliado.",
-      "A equipe deveria medir apenas o número de tarefas.",
+      "Analisar benefício, impacto em escopo, prazo, custo e riscos, comparar alternativas e registrar a decisão com quem tem autoridade.",
+      "Adicionar a tarefa e manter o prazo e orçamento anteriores sem verificar o impacto.",
+      "Recusar qualquer mudança para preservar o plano inicial.",
     ],
     correct: 0,
     feedback:
-      "Uma entrega é um meio. Revise as hipóteses que ligavam as funcionalidades ao resultado e use evidências para decidir o próximo experimento.",
+      "O controle integrado de mudanças conecta o pedido aos objetivos e às restrições do projeto. A decisão pode ser aceitar, adiar ou recusar; registre seus motivos e atualize o plano e a comunicação após a decisão.",
   },
   "web-mobile": {
     question:

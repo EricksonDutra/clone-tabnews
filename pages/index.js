@@ -41,9 +41,9 @@ export default function Home() {
   const visible = areas.filter(
     (area) =>
       (category === categories[0] || area.category === category) &&
-      normalize(`${area.title} ${area.description}`).includes(
-        normalize(query),
-      ) &&
+      normalize(
+        `${area.title} ${area.description} ${area.modules.map((module) => module.title).join(" ")}`,
+      ).includes(normalize(query)) &&
       (!savedOnly || saved.includes(area.slug)),
   );
   function favorite(slug) {
@@ -84,7 +84,9 @@ export default function Home() {
             </span>
             <span className="meta-dot">·</span>
             <span>
-              <Icon name="book" size={15} /> 27 módulos para explorar
+              <Icon name="book" size={15} />{" "}
+              {areas.reduce((total, area) => total + area.modules.length, 0)}{" "}
+              módulos para explorar
             </span>
             <span className="meta-dot">·</span>
             <span>Infinitas conexões</span>
@@ -252,8 +254,8 @@ export default function Home() {
                         <h3>{area.short}</h3>
                         <p>{area.description}</p>
                         <span className="card-detail">
-                          3 módulos <span>·</span> Explorar área{" "}
-                          <Icon name="arrow" size={13} />
+                          {area.modules.length} módulos <span>·</span> Explorar
+                          área <Icon name="arrow" size={13} />
                         </span>
                       </div>
                     </Link>

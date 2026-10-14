@@ -1,5 +1,9 @@
-// Conteúdo autoral de partida. O histórico pessoal é cadastrado pelo leitor.
-export const areas = [
+import { adsStudies } from "./ads-studies";
+import { projectStudies } from "./project-studies";
+import { withLearningResources } from "./learning-resources";
+
+// Conteúdo autoral de partida e sínteses referenciadas dos estudos pessoais.
+const baseAreas = [
   {
     slug: "analise-e-desenvolvimento",
     title: "Análise e desenvolvimento",
@@ -168,10 +172,17 @@ export const areas = [
     color: "#8cdd72",
     tint: "#22351b",
     label: "EXPERIÊNCIAS QUE FUNCIONAM",
-    description: "Interfaces acessíveis, aplicações e experiências digitais.",
+    description:
+      "Front-end, back-end, dados e microsserviços: da interface à entrega.",
     intro:
-      "Construa experiências que respeitam dispositivos, conexões e pessoas diferentes. Esta trilha conecta interface, estado e comunicação com serviços.",
-    related: ["analise-e-desenvolvimento", "arquitetura", "educacao"],
+      "Conecte interfaces acessíveis, JavaScript, aplicações com ASP.NET e C#, banco de dados, arquitetura, microsserviços, DevOps e gestão ágil. Os estudos da Especialização em Desenvolvimento Web do Senac orientam este percurso, junto aos fundamentos de experiência mobile.",
+    studyContext:
+      "Sínteses autorais e exercícios organizados a partir dos materiais disponíveis em SENAC / Pós Desenvolvimento Web. Os tempos são estimativas de leitura e prática, não a carga horária da pós. Mobile aparece como aplicação dos conceitos de interface, arquitetura e entrega; não foi localizada uma disciplina específica de programação de aplicativos. Libras é uma formação complementar para pensar inclusão, e Ambientação reúne orientações acadêmicas.",
+    contentLabel: "Conteúdo autoral · estudos da pós Senac",
+    sourceHeading: "Continue estudando no Drive",
+    sourceAccessNote:
+      "Os materiais abrem no Google Drive e seguem as permissões de acesso da sua conta.",
+    related: ["analise-e-desenvolvimento", "arquitetura", "gestao-de-projetos"],
     modules: [
       {
         title: "Interface acessível e responsiva",
@@ -207,6 +218,135 @@ export const areas = [
           "Escolha uma jornada e mapeie suas requisições. Identifique um recurso dispensável, um tratamento de erro ausente e uma oportunidade de cache.",
         question:
           "A aplicação continua útil quando a conexão fica lenta ou intermitente?",
+      },
+      {
+        title: "Front-end e linguagens de interação",
+        time: "30 min",
+        content: [
+          "JavaScript conecta a estrutura da página às ações do usuário. Pratique funções, objetos e arrays antes de manipular o DOM. Em um formulário, escute o envio, leia os campos e apresente uma resposta compreensível. Diferencie o valor digitado, a validação e o estado da operação.",
+          "A disciplina Linguagens de Interação aborda DOM, eventos, armazenamento local, JSON, validação, jQuery e Ajax. Use esses temas para investigar como a interface troca dados sem recarregar a página. Validação no navegador ajuda a pessoa a corrigir o preenchimento; o servidor também precisa validar os dados recebidos.",
+        ],
+        exercise:
+          "Construa um formulário de inscrição com nome e e-mail. Valide os campos, apresente os estados de envio e simule uma resposta de erro do servidor. Compare a manipulação do DOM com JavaScript e jQuery.",
+        question:
+          "O que acontece quando a requisição falha depois que os campos já passaram pela validação?",
+        sources: [
+          {
+            title:
+              "Linguagens de Interação · JavaScript, DOM, formulários e Ajax",
+            url: "https://drive.google.com/drive/folders/1jkMFncrfraG_Cs_vRt6YIfWByUFGaHIE",
+          },
+        ],
+      },
+      {
+        title: "Back-end com ASP.NET e C#",
+        time: "35 min",
+        content: [
+          "O plano de Sistemas dinâmicos para web com banco de dados usa .NET 6, ASP.NET e C# para estudar aplicações web. Acompanhe o caminho de uma requisição: a interface envia dados, o servidor aplica regras e devolve uma resposta. Identifique as responsabilidades de cada etapa antes de escolher onde escrever o código.",
+          "No padrão MVC, o controlador coordena a requisição, o modelo representa os dados e comportamentos e a visão apresenta o resultado. Evite colocar regras apenas na tela: chamadas diretas ao servidor também precisam respeitá-las. Planeje respostas para entrada inválida, recurso ausente e falha de persistência.",
+        ],
+        exercise:
+          "Desenhe e implemente um cadastro de cursos em ASP.NET com C#. Separe modelo, controlador e visão; defina o comportamento de criação e consulta, incluindo nome vazio e curso inexistente.",
+        question:
+          "Quais regras continuariam protegidas se outra interface consumisse o mesmo servidor?",
+        sources: [
+          {
+            title:
+              "Plano de ensino · Sistemas dinâmicos para web com banco de dados",
+            url: "https://drive.google.com/file/d/15NINjJEp5rAsyRS83zU5k0L2bcWXsUhL/view",
+          },
+        ],
+      },
+      {
+        title: "Banco de dados e persistência",
+        time: "30 min",
+        content: [
+          "Persistir dados exige representar as relações do domínio e proteger sua integridade. Em um portal de cursos, separe curso, aluno e matrícula, defina identificadores e explicite quais combinações podem se repetir. A disciplina trabalha acesso a SQL Server ou MySQL, modelagem e comunicação de dados no sistema web.",
+          "Ao integrar aplicação e banco, use consultas parametrizadas e defina quais operações precisam acontecer juntas em uma transação. Verifique o resultado quando duas solicitações tentam alterar o mesmo registro. Investigue consultas lentas com dados representativos antes de adicionar índices ou mecanismos de cache.",
+        ],
+        exercise:
+          "Modele curso, aluno e matrícula. Crie uma consulta de matrículas por curso e uma restrição que impeça duplicidade. Simule duas tentativas de matrícula simultâneas e descreva a resposta da aplicação.",
+        question:
+          "Qual regra precisa ser garantida também pelo banco, além da validação na aplicação?",
+        sources: [
+          {
+            title: "Sistemas dinâmicos · Banco de dados",
+            url: "https://drive.google.com/file/d/14zXdM5sXXzbYOrv5uXNGfyE69DFaoiiW/view",
+          },
+        ],
+      },
+      {
+        title: "Arquitetura aplicada a web e mobile",
+        time: "30 min",
+        content: [
+          "Os materiais de Arquitetura de software incluem POO, Clean Code, SOLID, padrões de projeto e modelos arquiteturais. Use esses fundamentos para manter as regras de negócio compreensíveis quando uma aplicação atende tanto um navegador quanto um aplicativo móvel. Uma mudança de interface não deveria exigir reescrever todas as regras.",
+          "O capítulo de modelos arquiteturais apresenta Facade, arquitetura hexagonal e serverless. Na arquitetura hexagonal, portas descrevem as interações e adaptadores conectam o domínio às tecnologias. Compare essa organização com o MVC estudado no back-end e registre o custo de introduzir novas abstrações no seu contexto.",
+        ],
+        exercise:
+          "Separe a regra de matrícula do controlador web e do acesso ao banco. Desenhe como uma interface mobile poderia usar a mesma regra e escreva uma decisão explicando os limites escolhidos.",
+        question:
+          "Você consegue testar uma regra de negócio sem iniciar a interface ou o banco de dados?",
+        sources: [
+          {
+            title: "Arquitetura · Design patterns e modelos arquiteturais",
+            url: "https://drive.google.com/file/d/149C2aa9CNZIsNRj0bm8JiHu7FRAS2QNa/view",
+          },
+        ],
+      },
+      {
+        title: "Microsserviços, APIs e integração",
+        time: "35 min",
+        content: [
+          "A disciplina Desenvolvimento de Microsserviços reúne arquitetura, comunicação, integração e deploy. Seu material compara comunicação síncrona e assíncrona e apresenta REST, GraphQL, SOAP, WebSockets, MQTT e AMQP. Relacione cada escolha à necessidade de resposta imediata, ao volume de mensagens e às consequências de uma falha.",
+          "Uma API precisa de um contrato que os clientes web e mobile consigam usar: dados esperados, respostas, erros e compatibilidade. Para serviços separados, planeje limites de espera, repetição segura e recuperação. Antes de distribuir uma aplicação, compare os ganhos de autonomia com o esforço de manter comunicação e operação entre serviços.",
+        ],
+        exercise:
+          "Defina o contrato de uma API de matrículas e de um evento de matrícula confirmada. Descreva como o serviço de notificações reage à indisponibilidade e ao recebimento repetido do mesmo evento.",
+        question:
+          "Qual parte do fluxo precisa responder imediatamente e qual pode ser concluída depois?",
+        sources: [
+          {
+            title: "Microsserviços · Modelos de comunicação",
+            url: "https://drive.google.com/file/d/1pRM3McjTvXmC6_NunLqVLF0--RRaOsSw/view",
+          },
+        ],
+      },
+      {
+        title: "DevOps e entrega de aplicações",
+        time: "35 min",
+        content: [
+          "O plano de DevOps conecta cultura de colaboração, integração contínua, entrega contínua e infraestrutura como código. A prática usa Azure Boards, Git com Azure Repos e Azure Pipelines, incluindo publicação de aplicações web e mobile. Acompanhe o caminho de uma alteração desde o planejamento até sua execução em um ambiente de uso.",
+          "Organize uma pipeline com verificações, testes e geração de um artefato identificável. Defina como configurações e segredos entram em cada ambiente e como recuperar uma versão anterior quando necessário. Uma entrega só pode ser avaliada quando a equipe consegue observar o comportamento da aplicação após a publicação.",
+        ],
+        exercise:
+          "Descreva uma pipeline para o cadastro de cursos: validação, testes, build e publicação em homologação. Inclua uma condição que interrompa a entrega e um procedimento de recuperação.",
+        question:
+          "Como descobrir qual alteração chegou ao ambiente e se ela está funcionando?",
+        sources: [
+          {
+            title: "Plano de ensino · DevOps para aplicações web e mobile",
+            url: "https://drive.google.com/file/d/1-h3046aLS7w7OFTiMIQN7aeVbhCmDFw8/view",
+          },
+        ],
+      },
+      {
+        title: "Gestão ágil do produto digital",
+        time: "30 min",
+        content: [
+          "Gestão ágil de projetos aborda o ciclo de vida da aplicação, métodos ágeis, Scrum, XP, FDD, escalabilidade ágil e métricas. Aplique esses estudos ao desenvolvimento web e mobile organizando entregas que possam ser verificadas por quem usa o produto. Uma história deve explicar a necessidade e incluir exemplos de aceitação.",
+          "Use backlog e um quadro de trabalho para expor prioridades e bloqueios. Observe trabalho em andamento, tempo de ciclo e entregas concluídas para melhorar o fluxo. Combine uma revisão do produto com uma retrospectiva do processo, escolhendo uma mudança concreta para o próximo ciclo.",
+        ],
+        exercise:
+          "Crie um backlog para a jornada de matrícula, com três histórias e critérios de aceitação. Escolha uma entrega pequena para web ou mobile e defina como demonstrá-la e avaliar o aprendizado.",
+        question:
+          "Que resultado para o usuário comprova o valor desta entrega?",
+        sources: [
+          {
+            title:
+              "Gestão ágil de projetos · Ciclo de vida, métodos e métricas",
+            url: "https://drive.google.com/drive/folders/13gD-o6po6gGBx8WG9sQNoYPGrdWHYCmN",
+          },
+        ],
       },
     ],
   },
@@ -271,9 +411,16 @@ export const areas = [
     color: "#bf9cf1",
     tint: "#2a203a",
     label: "CRESCER COM OUTRAS PESSOAS",
-    description: "Colaboração, autonomia e aprendizado na prática.",
+    description:
+      "Empatia, autoconfiança, comunicação e pensamento crítico na prática.",
     intro:
-      "Habilidades interpessoais aparecem em comportamentos concretos. Explore acordos, feedback e autonomia como práticas que podem ser observadas e desenvolvidas.",
+      "Transforme habilidades pessoais e interpessoais em ações observáveis. Conecte colaboração, feedback e autonomia a autoconfiança, empatia, comunicação assertiva, inteligência emocional, adaptabilidade, criatividade, pensamento crítico e motivação, a partir dos seus estudos no Notion.",
+    studyContext:
+      "Sínteses autorais e exercícios elaborados a partir das anotações da página Soft Skills no Notion. Comunicação e Inteligência Emocional aparecem aqui em situações de colaboração; as áreas dedicadas aprofundam esses temas. Atitude positiva e Motivação compartilham um módulo, enquanto Jogo de cintura orienta o estudo de adaptabilidade. Alguns materiais de comunicação se identificam como textos baseados em IA e são tratados como anotações de estudo. Os tempos estimam leitura e prática.",
+    contentLabel: "Conteúdo autoral · estudos do Notion",
+    sourceHeading: "Continue estudando no Notion",
+    sourceAccessNote:
+      "As referências abrem no Notion e seguem as permissões de acesso do seu espaço.",
     related: ["comunicacao", "inteligencia-emocional", "gestao-de-projetos"],
     modules: [
       {
@@ -287,6 +434,12 @@ export const areas = [
           "Escreva três acordos de trabalho com sua equipe e defina quando serão revisados.",
         question:
           "Que expectativa importante existe hoje apenas na sua cabeça?",
+        sources: [
+          {
+            title: "Soft Skills · Acervo de estudos",
+            url: "https://app.notion.com/p/94fa797782dd49f8894bef321b255d49",
+          },
+        ],
       },
       {
         title: "Dar e receber feedback",
@@ -294,11 +447,22 @@ export const areas = [
         content: [
           "Um feedback útil descreve uma situação, um comportamento observável e seu efeito. Evite transformar uma ocorrência em um rótulo sobre a pessoa. Faça um pedido ou convide a construir uma alternativa.",
           "Ao receber feedback, esclareça exemplos e verifique o entendimento antes de responder. Você pode avaliar a observação sem aceitá-la imediatamente. Escolha uma mudança pequena e combine como seu efeito será acompanhado.",
+          "Suas anotações apresentam SCI (Situação, Comportamento e Impacto), STAR (Situação, Tarefa, Ação e Resultado) e DESC (Descrever, Expressar, Sugerir e Consequências). Use uma estrutura para organizar a conversa, adaptando-a ao contexto. No feedback sanduíche, elogios precisam ser específicos e sinceros; acrescentar elogios vagos pode esconder o pedido de melhoria.",
         ],
         exercise:
           "Reescreva um feedback genérico como uma observação específica, um impacto e um pedido.",
         question:
           "O feedback dá à pessoa uma ação possível ou apenas um julgamento?",
+        sources: [
+          {
+            title: "Feedback eficaz · Observações e interpretações",
+            url: "https://app.notion.com/p/27cb4f223574800eaa5cd0b472aab35e",
+          },
+          {
+            title: "Modelos de feedback · SCI, STAR e DESC",
+            url: "https://app.notion.com/p/27cb4f22357480fab0ceeee30c5288ea",
+          },
+        ],
       },
       {
         title: "Autonomia e aprendizado contínuo",
@@ -310,6 +474,172 @@ export const areas = [
         exercise:
           "Escolha uma habilidade para as próximas duas semanas. Defina uma situação de prática e um sinal observável de evolução.",
         question: "Você precisa de mais informação, de prática ou de feedback?",
+        sources: [
+          {
+            title: "Soft Skills · Autoconfiança",
+            url: "https://app.notion.com/p/f42382a8642043c1bfc0e93e5ba35e44",
+          },
+        ],
+      },
+      {
+        title: "Autoconfiança e autoconhecimento",
+        time: "25 min",
+        content: [
+          "A página Autoconfiança relaciona a segurança para agir ao conhecimento das próprias capacidades e dos pontos que precisam de desenvolvimento. Para uma tarefa nova, liste o que você já consegue fazer, onde existe dúvida e qual preparação pode ajudar. Use experiências concretas para avaliar sua capacidade, em vez de se apoiar apenas na comparação com outras pessoas.",
+          "Planeje uma tentativa pequena, peça feedback sobre um aspecto específico e registre o resultado. Reconheça conquistas sem perder a abertura para aprender. Ao apresentar uma proposta, explique o que sabe, o que ainda precisa validar e como pretende investigar a incerteza.",
+        ],
+        exercise:
+          "Escolha uma tarefa que costuma adiar por insegurança. Registre duas experiências que ajudam a realizá-la, uma lacuna de conhecimento e uma tentativa possível nesta semana. Depois, anote o que aprendeu.",
+        question:
+          "Que evidência sustenta sua avaliação sobre o que consegue fazer hoje?",
+        sources: [
+          {
+            title: "Soft Skills · Autoconfiança",
+            url: "https://app.notion.com/p/f42382a8642043c1bfc0e93e5ba35e44",
+          },
+        ],
+      },
+      {
+        title: "Empatia e escuta ativa",
+        time: "25 min",
+        content: [
+          "Suas anotações de Empatia destacam a importância de compreender o contexto e as necessidades da outra pessoa. Antes de interpretar uma atitude, pergunte pela situação que ela enfrenta. Uma mesma entrega pode envolver expectativas diferentes para quem desenvolve, atende o cliente ou usa o produto.",
+          "Na escuta ativa, acompanhe o raciocínio sem preparar uma resposta enquanto a pessoa fala. Faça perguntas abertas, resuma o que entendeu e dê espaço para correções. Evite presumir sentimentos ou intenções a partir de um gesto isolado. Compreender o outro ajuda a negociar um acordo que também respeite seus próprios limites.",
+        ],
+        exercise:
+          "Em uma conversa sobre uma dificuldade de trabalho, faça duas perguntas abertas e devolva um resumo antes de propor uma solução. Registre uma suposição inicial que precisou revisar.",
+        question:
+          "Você confirmou a perspectiva da pessoa ou apenas imaginou o que sentiria no lugar dela?",
+        sources: [
+          {
+            title: "Soft Skills · Empatia",
+            url: "https://app.notion.com/p/883833cd83ba45e7839b58ba1d721424",
+          },
+          {
+            title: "Comunicação · Modulo 2: escuta ativa",
+            url: "https://app.notion.com/p/609531b624c0447c97498545ae9da399",
+          },
+        ],
+      },
+      {
+        title: "Comunicação assertiva e conversas difíceis",
+        time: "30 min",
+        content: [
+          "Assertividade envolve expressar uma posição de forma clara, honesta e adequada ao contexto, respeitando as outras pessoas. Ao conversar sobre um prazo, descreva a demanda, explique a capacidade disponível e formule um pedido específico. Escolha um canal que permita esclarecer dúvidas e confirme o entendimento do acordo.",
+          "Em uma divergência, comece por um fato observável, explique como ele afeta o trabalho e pergunte pelo contexto do outro. As anotações de Comunicação associam a comunicação não violenta à empatia, à escuta e ao cuidado com as palavras. Use esses princípios para discutir o problema e negociar o próximo passo; registre responsabilidades e quando o acordo será revisto.",
+        ],
+        exercise:
+          "Reescreva um pedido vago ou agressivo em uma mensagem com contexto, limite e ação desejada. Simule uma resposta de discordância e proponha uma alternativa com prazo e responsável.",
+        question:
+          "A outra pessoa consegue identificar seu pedido e expressar uma discordância?",
+        sources: [
+          {
+            title: "Comunicação · Assertividade e efetividade",
+            url: "https://app.notion.com/p/27cb4f223574803e873ffa64d7ad3757",
+          },
+          {
+            title: "Comunicação · Conceitos e comunicação não violenta",
+            url: "https://app.notion.com/p/b5113e350f03452298d9240052559be2",
+          },
+          {
+            title: "CNV · Referência visual complementar no Notion",
+            url: "https://app.notion.com/p/29cb4f2235748070b38eea2aa1951a69",
+          },
+        ],
+      },
+      {
+        title: "Inteligência emocional na colaboração",
+        time: "25 min",
+        content: [
+          "A página Inteligência Emocional destaca reconhecer emoções, observar impulsos e escolher como agir. Em uma reunião tensa, separe o que aconteceu, o que você interpretou e a reação que percebe em si. Essa observação ajuda a preparar uma resposta coerente com o objetivo da conversa.",
+          "Se precisar de uma pausa, combine quando retomar o assunto. Ao voltar, descreva o impacto da situação e escute as necessidades envolvidas. Após um erro, examine as condições que contribuíram para ele e escolha uma mudança verificável. A área dedicada de Inteligência emocional aprofunda autopercepção, regulação e relações.",
+        ],
+        exercise:
+          "Relembre uma situação de tensão profissional e registre fato, interpretação, emoção e ação. Escreva uma resposta alternativa que preserve o diálogo e proponha um próximo passo.",
+        question:
+          "Qual resposta ajuda a resolver a situação e respeita as pessoas envolvidas?",
+        sources: [
+          {
+            title: "Soft Skills · Inteligência Emocional",
+            url: "https://app.notion.com/p/fffb4f22357480af8c68ea92477686fa",
+          },
+        ],
+      },
+      {
+        title: "Adaptabilidade e jogo de cintura",
+        time: "20 min",
+        content: [
+          "A página Jogo de cintura apresenta flexibilidade diante de mudanças como uma habilidade profissional. Transforme essa ideia em uma prática: quando uma prioridade muda, descubra o motivo, o que permanece necessário e quais compromissos são afetados. Torne as consequências visíveis antes de reorganizar a execução.",
+          "Compare alternativas que cabem nas condições atuais. Renegocie prazo, escopo ou apoio e registre a decisão com as pessoas envolvidas. Depois da mudança, observe o resultado para ajustar o próximo ciclo. Estes passos são uma proposta de aplicação autoral para desenvolver o tema breve registrado no Notion.",
+        ],
+        exercise:
+          "Simule uma mudança de prioridade no meio de uma entrega. Liste os compromissos afetados, proponha duas alternativas e escreva um acordo com o que será entregue e quando.",
+        question:
+          "Que compromisso precisa ser renegociado para que a mudança seja viável?",
+        sources: [
+          {
+            title: "Soft Skills · Jogo de cintura",
+            url: "https://app.notion.com/p/22ff941f96b74d37a47d49a6d18c447c",
+          },
+        ],
+      },
+      {
+        title: "Imaginação e criatividade aplicada",
+        time: "30 min",
+        content: [
+          "As anotações de Imaginação e criatividade conectam curiosidade, observação e troca de ideias à busca de soluções. Comece por um problema delimitado e investigue as necessidades de quem o enfrenta. Gere possibilidades antes de escolher uma, incluindo mudanças no processo e formas diferentes de aproveitar recursos existentes.",
+          "Compartilhe as alternativas com a equipe e escolha uma experiência pequena para avaliar a ideia. Registre o que será observado e use o resultado para melhorar a proposta. Dê espaço para descanso e novas referências quando ficar preso à primeira solução; uma ideia ganha utilidade quando responde a uma necessidade concreta.",
+        ],
+        exercise:
+          "Escolha uma tarefa repetitiva e liste cinco formas de melhorá-la. Selecione uma alternativa que possa ser experimentada em uma semana e defina como comparar seu resultado com a rotina atual.",
+        question:
+          "Qual necessidade sua ideia atende e como você pode testar isso?",
+        sources: [
+          {
+            title: "Soft Skills · Imaginação e criatividade",
+            url: "https://app.notion.com/p/327e29f5c49d4c8e905afd0edd1888d7",
+          },
+        ],
+      },
+      {
+        title: "Pensamento crítico e tomada de decisão",
+        time: "30 min",
+        content: [
+          "Pensamento crítico, nas suas anotações, envolve examinar informações e considerar diferentes perspectivas antes de decidir. Separe o problema, as evidências disponíveis e as interpretações que está fazendo. Pergunte de onde vem cada informação, o que ela demonstra e o que ainda falta investigar.",
+          "Compare alternativas usando critérios explícitos, como impacto, esforço e possibilidade de revisão. Procure também evidências que possam contrariar sua opção preferida. Ao decidir em equipe, registre as razões e as condições que justificariam rever a escolha; isso permite discordar com argumentos e aprender com o resultado.",
+        ],
+        exercise:
+          "Escolha uma decisão de trabalho. Liste duas alternativas, três critérios e uma informação que falta. Registre o que faria você mudar de opinião e um modo de obter essa evidência.",
+        question:
+          "Que parte da sua conclusão é apoiada por fatos e qual depende de uma suposição?",
+        sources: [
+          {
+            title: "Soft Skills · Pensamento Crítico",
+            url: "https://app.notion.com/p/186efd1ff9934f489f1b3fd96ed7c0d4",
+          },
+        ],
+      },
+      {
+        title: "Motivação e atitude positiva realista",
+        time: "25 min",
+        content: [
+          "A página Motivação relaciona objetivos pessoais e profissionais às tarefas e às metas da equipe. Escolha um resultado que faça sentido para você e divida-o em etapas que possam ser concluídas. Identifique o apoio e os recursos necessários e acompanhe pequenas entregas para reconhecer o avanço.",
+          "Atitude positiva, nas suas anotações, envolve transformar uma postura construtiva em ação e manter contato com as dificuldades reais. Diante de um obstáculo, reconheça o impacto, examine o que pode ser feito e peça apoio quando necessário. Revise a meta ou as condições de execução se o plano deixar de ser viável.",
+        ],
+        exercise:
+          "Escolha uma meta de aprendizado para duas semanas. Explique por que ela importa, divida-a em três passos e reserve momentos de prática. Registre uma barreira possível e como adaptar o plano.",
+        question:
+          "Qual próximo passo cabe nas suas condições atuais e aproxima você da meta?",
+        sources: [
+          {
+            title: "Soft Skills · Motivação",
+            url: "https://app.notion.com/p/b1b73119b1dc433090e79f4d6e7974d9",
+          },
+          {
+            title: "Soft Skills · Atitude positiva",
+            url: "https://app.notion.com/p/c886b458dc10450485860861b047758b",
+          },
+        ],
       },
     ],
   },
@@ -468,6 +798,23 @@ export const areas = [
     ],
   },
 ];
+
+// Acrescentar módulos preserva os índices usados pelo progresso no navegador.
+export const areas = baseAreas.map((area) => {
+  const supplements = [adsStudies[area.slug], projectStudies[area.slug]].filter(
+    Boolean,
+  );
+  return withLearningResources(
+    supplements.reduce(
+      (current, supplement) => ({
+        ...current,
+        ...supplement,
+        modules: [...current.modules, ...supplement.modules],
+      }),
+      area,
+    ),
+  );
+});
 
 export const trails = [
   {
