@@ -23,6 +23,8 @@ export function Icon({ name = "spark", size = 20, ...props }) {
     map: "m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Zm6-2v16m6-14v16",
     list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",
     close: "m6 6 12 12M6 18 18 6",
+    sun: "M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8",
+    moon: "M20 15.5A8 8 0 0 1 8.5 4 8 8 0 1 0 20 15.5Z",
   };
   return (
     <svg
@@ -43,6 +45,16 @@ export function Icon({ name = "spark", size = 20, ...props }) {
 }
 
 export function Header({ active }) {
+  return <HeaderContent active={active} />;
+}
+
+function HeaderContent({ active }) {
+  const [theme, saveTheme] = useSaved("connections-theme", "dark");
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    saveTheme(next);
+  }
   return (
     <header className="site-header">
       <Link href="/" className="brand">
@@ -62,9 +74,21 @@ export function Header({ active }) {
           Biblioteca
         </Link>
       </nav>
-      <span className="header-caption">
-        UM UNIVERSO EM CONSTRUÇÃO <span className="live-dot" />
-      </span>
+      <div className="header-actions">
+        <span className="header-caption">
+          UM UNIVERSO EM CONSTRUÇÃO <span className="live-dot" />
+        </span>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+          title={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+        >
+          <Icon name={theme === "dark" ? "sun" : "moon"} size={18} />
+          <span>{theme === "dark" ? "Tema claro" : "Tema escuro"}</span>
+        </button>
+      </div>
     </header>
   );
 }

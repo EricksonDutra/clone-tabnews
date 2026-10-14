@@ -1,0 +1,206 @@
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 37px;
+  padding: 7px 11px;
+  border: 1px solid var(--border, #dfe5db);
+  border-radius: 8px;
+  background: var(--area-tint, #eef2e9);
+  color: var(--olive, #687a4b);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.theme-toggle:hover {
+  border-color: var(--olive, #687a4b);
+}
+html[data-theme="light"] {
+  color-scheme: light;
+}
+html[data-theme="light"] body {
+  font-size: 16px;
+}
+html[data-theme="light"] .site-header nav a {
+  font-size: 14px;
+}
+html[data-theme="light"] .home-intro p,
+html[data-theme="light"] .detail-hero p,
+html[data-theme="light"] .collection-intro {
+  font-size: 16px;
+}
+html[data-theme="light"] .intro-meta,
+html[data-theme="light"] .map-caption {
+  font-size: 12px;
+}
+html[data-theme="light"] .category-filters button,
+html[data-theme="light"] .favorites-filter {
+  font-size: 12px;
+}
+html[data-theme="light"] .area-card h3 {
+  font-size: 14px;
+}
+html[data-theme="light"] .card-category,
+html[data-theme="light"] .card-detail {
+  font-size: 11px;
+}
+html[data-theme="light"] .module-content > p {
+  font-size: 17px;
+}
+html[data-theme="light"] .module-nav button {
+  font-size: 14px;
+}
+html[data-theme="light"] .practice-box p,
+html[data-theme="light"] .knowledge-check > div > p {
+  font-size: 15px;
+}
+html[data-theme="light"] .feature-panel h2 {
+  font-size: 16px;
+}
+html[data-theme="light"] .feature-panel p,
+html[data-theme="light"] .trail-card > p,
+html[data-theme="light"] .trail-card li,
+html[data-theme="light"] .trail-project p {
+  font-size: 13px;
+}
+html[data-theme="light"] .book-form label,
+html[data-theme="light"] .book-content > p {
+  font-size: 13px;
+}
+html[data-theme="light"] .area-card .card-category,
+html[data-theme="light"] .area-card .card-detail svg,
+html[data-theme="light"] .related-card small {
+  filter: brightness(0.65);
+}
+html[data-theme="light"] .map-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  color: #738368;
+}
+html[data-theme="light"] .map-controls span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+html[data-theme="light"] .map-controls button {
+  border: 1px solid #c9d2bf;
+  padding: 9px 12px;
+  color: #526d4b;
+}
+html[data-theme="light"] .connect-button {
+  color: #447b57;
+  display: block;
+  margin: 0 0 15px 63px;
+  font-size: 12px;
+}
+html[data-theme="light"] .selected-node {
+  border-color: #3a8864;
+  box-shadow: 0 0 18px #4eac7840;
+}
+html[data-theme="light"] .related-node {
+  border-color: #89a780;
+}
+html[data-theme="light"] .connection-inspector {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 25px;
+  border: 1px solid #c4d5bb;
+  border-radius: 12px;
+  background: #edf4e9;
+}
+html[data-theme="light"] .connection-inspector h2 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+html[data-theme="light"] .connection-inspector p {
+  color: #61715a;
+  line-height: 1.7;
+  margin-bottom: 13px;
+}
+html[data-theme="light"] .connection-chips {
+  display: grid;
+  gap: 8px;
+}
+html[data-theme="light"] .connection-chips button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #c5d4bd;
+  padding: 11px;
+  text-align: left;
+}
+html[data-theme="light"] .connection-chips svg:last-child {
+  margin-left: auto;
+}
+html[data-theme="light"] .case-study {
+  border: 1px solid #c5d9bd;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 30px 0;
+}
+html[data-theme="light"] .case-study summary {
+  cursor: pointer;
+  padding: 20px;
+  background: #edf4e9;
+  font-size: 17px;
+  font-weight: 600;
+}
+html[data-theme="light"] .case-study-content {
+  padding: 25px;
+}
+html[data-theme="light"] .case-study h3 {
+  font-size: 22px;
+  margin: 10px 0 18px;
+}
+html[data-theme="light"] .case-study h4 {
+  color: #527446;
+  font-size: 15px;
+  margin: 22px 0 10px;
+}
+html[data-theme="light"] .case-study p,
+html[data-theme="light"] .case-study li {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #596b55;
+}
+html[data-theme="light"] .case-study ol {
+  padding-left: 22px;
+}
+html[data-theme="light"] .case-study li {
+  padding: 5px 0;
+}
+@media (max-width: 760px) {
+  .header-actions {
+    margin-left: auto;
+  }
+  .header-caption {
+    display: none;
+  }
+  .theme-toggle span {
+    display: none;
+  }
+  .theme-toggle {
+    width: 37px;
+    padding: 7px;
+    justify-content: center;
+  }
+  html[data-theme="light"] .area-card h3 {
+    font-size: 15px;
+  }
+  html[data-theme="light"] .connection-inspector {
+    grid-template-columns: 1fr auto;
+  }
+  html[data-theme="light"] .connection-chips {
+    grid-column: 1/-1;
+    grid-row: 2;
+  }
+}

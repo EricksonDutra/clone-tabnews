@@ -6,6 +6,8 @@ estudos na plataforma curso.dev
 
 A home reúne nove áreas em um mapa com um cérebro ilustrado em SVG e conexões animadas. Há busca por assunto, filtros, favoritos e visualização em cards. Cada área tem uma página própria com identidade visual, três módulos autorais, atividade prática, reflexão, pergunta de aplicação com feedback e conexões para outros temas.
 
+O botão no cabeçalho alterna entre os temas claro e escuro. A escolha é salva no navegador e aplicada em todas as páginas.
+
 As três trilhas combinam áreas em percursos com projetos integradores. A biblioteca permite cadastrar, editar e excluir livros, registrar anotações, definir o momento da leitura e vincular cada livro a uma área.
 
 ### Executar a interface
