@@ -4,6 +4,9 @@
   "description": "estudos na plataforma curso.dev",
   "main": "index.js",
   "scripts": {
+    "dev:web": "next dev",
+    "build": "next build",
+    "start": "next start",
     "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev",
     "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
     "posttest": "npm run services:stop",

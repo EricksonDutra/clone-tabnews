@@ -1,0 +1,779 @@
+/* Conexões: night palette and larger, accessible reading surfaces. */
+:root {
+  --x: 50%;
+  color-scheme: dark;
+  --paper: #090f11;
+  --ink: #e5f0eb;
+  --muted: #a3b7ae;
+  --olive: #4be8a0;
+  --border: #243631;
+  --area-color: #4be8a0;
+  --area-tint: #112c22;
+}
+body {
+  font-size: 16px;
+  background:
+    radial-gradient(ellipse at 50% 10%, #10271f80, transparent 45%),
+    var(--paper);
+}
+.site-header {
+  max-width: 1500px;
+}
+.brand-mark {
+  background: #123c2b;
+  border: 1px solid #2c8057;
+  color: #68f6b4;
+  box-shadow: 0 0 25px #20ef8b12;
+}
+.brand,
+.brand.small {
+  color: #e5f0eb;
+}
+.brand-dot,
+em {
+  color: #4be8a0;
+}
+.site-header nav a {
+  font-size: 15px;
+  color: #a3b7ae;
+}
+.site-header nav .active,
+.site-header nav a:hover {
+  color: #7bffbc;
+}
+.site-header nav .active::after {
+  background: #4be8a0;
+  box-shadow: 0 0 12px #4be8a0;
+}
+.header-caption,
+.eyebrow {
+  font-size: 11px;
+}
+.header-caption,
+.section-number,
+.caption-separator {
+  color: #8aa697;
+}
+.home-main {
+  max-width: 1450px;
+}
+.home-intro {
+  padding: 60px 0 45px;
+}
+.home-intro h1 {
+  font-size: clamp(40px, 4.5vw, 64px);
+  font-weight: 650;
+  letter-spacing: -2px;
+}
+.home-intro p,
+.collection-intro,
+.detail-hero p {
+  font-size: 17px;
+  color: #a9bdb4;
+}
+.intro-meta {
+  font-size: 13px;
+  color: #91ab9d;
+}
+.live-dot {
+  background: #4be8a0;
+  box-shadow: 0 0 10px #4be8a080;
+}
+.section-title h2 {
+  font-size: 21px;
+}
+.section-number {
+  font-size: 13px;
+}
+.search-box {
+  background: #121f1a;
+  width: 310px;
+  border: 1px solid #294334;
+}
+.search-box input {
+  font-size: 14px;
+}
+.search-box input::placeholder {
+  color: #98afa1;
+}
+.category-filters button,
+.favorites-filter {
+  font-size: 13px;
+  color: #a1b8a9;
+}
+.category-filters .selected,
+.view-toggle .selected,
+.library-filters .selected {
+  background: #163b29;
+  color: #8cfdba;
+}
+.map-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 0;
+  color: #8fab9b;
+  font-size: 13px;
+}
+.map-controls span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-controls button {
+  color: #75e7ae;
+  border: 1px solid #294c3a;
+  padding: 9px 12px;
+}
+.knowledge-map {
+  height: 760px;
+  margin: 16px 0 75px;
+}
+.map-grid {
+  background-image: radial-gradient(#2d6548 1px, transparent 1px);
+  opacity: 0.45;
+}
+.area-card {
+  width: 270px;
+  background: linear-gradient(135deg, #17251f, #101b18);
+  border-color: #2c4235;
+  box-shadow: 0 8px 35px #0003;
+}
+.area-link {
+  padding: 21px 25px 12px 17px;
+  gap: 12px;
+  min-height: 119px;
+}
+.area-card h3 {
+  font-size: 15px;
+  line-height: 1.45;
+}
+.card-category {
+  font-size: 11px;
+}
+.card-detail {
+  font-size: 11px;
+  color: #92ad9c;
+  margin-top: 10px;
+}
+.area-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--area-color);
+  border-radius: 10px;
+}
+.save-button {
+  opacity: 1;
+  color: #8aa796;
+  padding: 6px;
+  top: 5px;
+  right: 4px;
+}
+.connect-button {
+  margin: 0 0 15px 68px;
+  font-size: 12px;
+  color: #73e9ac;
+  padding: 3px 0;
+}
+.selected-node {
+  outline: 1px solid #70ffb3;
+  box-shadow: 0 0 30px #1cfa8c1a;
+}
+.related-node {
+  border-color: #4c9e71;
+}
+.connection-lines path {
+  stroke: #387252;
+  stroke-width: 1.1;
+  stroke-dasharray: 4 7;
+}
+.connection-lines .lit-line path {
+  stroke: #68ffab;
+  stroke-width: 2;
+}
+.connection-lines .signal {
+  fill: #76ffb9;
+  filter: drop-shadow(0 0 5px #37ff9f);
+}
+.brain-center {
+  top: 25%;
+  width: 330px;
+  height: 330px;
+}
+.brain-svg {
+  width: 330px;
+  height: 330px;
+  filter: drop-shadow(0 0 14px #12e38926);
+}
+.brain-label {
+  font-size: 22px;
+  color: #b3f5d0;
+  margin-top: -8px;
+}
+.brain-subtitle {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #659b80;
+}
+.orbit-one {
+  width: 330px;
+  height: 330px;
+  border-color: #205139;
+}
+.orbit-two {
+  width: 385px;
+  height: 385px;
+  border-color: #254d39;
+}
+.neural-mesh path {
+  opacity: 0.35;
+  stroke-dasharray: 30 10;
+  animation: neural-flow 8s linear infinite;
+}
+.neural-sparks circle {
+  animation: spark-glow 4s ease-in-out infinite;
+}
+@keyframes neural-flow {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+@keyframes spark-glow {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.motion-paused .brain-art,
+.motion-paused .neuron-dots,
+.motion-paused .neural-mesh path,
+.motion-paused .neural-sparks circle {
+  animation-play-state: paused;
+}
+.motion-paused .signal {
+  display: none;
+}
+.map-caption {
+  font-size: 12px;
+  color: #8aa897;
+}
+.connection-inspector {
+  border: 1px solid #2f6547;
+  border-radius: 14px;
+  padding: 28px;
+  background: linear-gradient(115deg, #143225, #0e1c17);
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 25px;
+  margin: 10px 0 24px;
+}
+.connection-inspector h2 {
+  font-size: 23px;
+  margin: 10px 0;
+}
+.connection-inspector p {
+  color: #acc0b2;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+.connection-inspector > button {
+  align-self: start;
+}
+.connection-chips {
+  display: grid;
+  gap: 8px;
+}
+.connection-chips button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid #30533d;
+  padding: 12px;
+  font-size: 14px;
+}
+.connection-chips button:hover {
+  background: #1e4630;
+}
+.connection-chips svg:last-child {
+  margin-left: auto;
+}
+.feature-panel,
+.book-panel,
+.trail-card,
+.related-card,
+.book-card {
+  background: #111e19;
+  border-color: #2a3b30;
+}
+.feature-panel h2 {
+  font-size: 18px;
+}
+.feature-panel p,
+.personal-note p,
+.personal-note p span {
+  font-size: 14px;
+  color: #9db3a4;
+}
+.feature-panel .eyebrow {
+  font-size: 11px;
+}
+.feature-icon,
+.book-panel .feature-icon {
+  background: #203727;
+  color: #7adba6;
+}
+.book-panel .eyebrow {
+  color: #b7d38b;
+}
+.site-footer {
+  font-size: 12px;
+  color: #8da995;
+}
+.primary-button {
+  color: #07130d;
+  font-size: 14px;
+  font-weight: 700;
+}
+.outline-button,
+.text-button,
+.back-link {
+  font-size: 14px;
+}
+.detail-main {
+  max-width: 1280px;
+}
+.detail-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 50px 28px;
+  border-radius: 16px;
+  background: linear-gradient(120deg, var(--area-tint), #0c1412);
+  margin-top: 26px;
+  border: 1px solid var(--border);
+}
+.detail-hero h1 {
+  font-size: clamp(34px, 4vw, 52px);
+}
+.detail-meta {
+  font-size: 12px;
+  color: #a7bcae;
+}
+.detail-emblem {
+  box-shadow: 0 0 70px var(--area-tint);
+}
+.study-sidebar h2 {
+  font-size: 21px;
+}
+.progress-label,
+.storage-note {
+  font-size: 12px;
+  color: #a3b4a8;
+}
+.module-nav button {
+  font-size: 15px;
+}
+.module-nav small,
+.module-number {
+  font-size: 12px;
+  color: #a4b9aa;
+}
+.module-content > p {
+  font-size: 18px;
+  line-height: 1.95;
+  color: #b8c9bf;
+}
+.module-content h2 {
+  font-size: 32px;
+}
+.practice-box p,
+.knowledge-check > div > p {
+  color: #b6cbbb;
+  font-size: 16px;
+}
+blockquote {
+  font-size: 26px;
+}
+blockquote span {
+  font-size: 12px;
+  color: #a1baa7;
+}
+.notes-section,
+.library-empty,
+.book-form {
+  background: #101f18;
+  border-color: #2b4433;
+}
+.notes-section p,
+.notes-section small {
+  color: #a5bca9;
+  font-size: 14px;
+}
+textarea,
+.book-form input,
+.book-form select {
+  background: #0a1510;
+  border-color: #335540;
+  color: #d7edde;
+  font-size: 16px;
+}
+textarea::placeholder {
+  color: #91a899;
+}
+.related-card h3 {
+  font-size: 14px;
+}
+.related-card small {
+  font-size: 11px;
+}
+.quiz-options > button {
+  background: #122019;
+  border-color: #304335;
+  font-size: 16px;
+}
+.quiz-feedback p {
+  font-size: 16px;
+}
+.trail-card h2 {
+  font-size: 25px;
+}
+.trail-card > p,
+.trail-card li,
+.trail-project p {
+  font-size: 15px;
+  color: #b0c3b5;
+}
+.trail-project {
+  background: #192d20;
+}
+.trail-card li::before,
+.info-strip p {
+  font-size: 13px;
+}
+.library-filters button,
+.book-form label {
+  font-size: 14px;
+}
+.book-content > p,
+.book-content .book-notes {
+  color: #b3c5b9;
+  font-size: 15px;
+}
+.book-connection,
+.book-actions button {
+  font-size: 13px;
+}
+.delete-confirm {
+  background: #38281f;
+}
+.empty-state p {
+  color: #a6bbac;
+}
+.case-study {
+  border: 1px solid var(--area-color);
+  border-radius: 14px;
+  margin: 30px 0;
+  overflow: hidden;
+}
+.case-study summary {
+  cursor: pointer;
+  padding: 22px;
+  background: var(--area-tint);
+  font-size: 17px;
+  font-weight: 600;
+}
+.case-study-content {
+  padding: 25px;
+}
+.case-study h3 {
+  font-size: 22px;
+  margin: 10px 0 18px;
+}
+.case-study h4 {
+  color: var(--area-color);
+  margin: 22px 0 10px;
+  font-size: 15px;
+}
+.case-study p,
+.case-study li {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #b6cbbb;
+}
+.case-study ol {
+  padding-left: 22px;
+}
+.case-study li {
+  padding: 5px 0;
+}
+.theme-analise-e-desenvolvimento .detail-hero {
+  background-image: linear-gradient(110deg, #113427, #0a1410);
+}
+.theme-gestao-de-projetos .detail-emblem {
+  border-radius: 15px;
+  border-style: solid;
+}
+.theme-soft-skills .detail-emblem {
+  border-radius: 35% 65% 55% 45%;
+}
+.theme-empreendedorismo .detail-emblem {
+  border-radius: 20px 70px;
+}
+.theme-inteligencia-emocional .detail-emblem {
+  border-radius: 65% 35% 45% 55%;
+}
+.theme-educacao .detail-emblem {
+  border-radius: 8px 45px;
+}
+.knowledge-map.list-view .area-card {
+  left: auto;
+}
+.knowledge-map.list-view {
+  margin-bottom: 5px;
+}
+.list-view .area-card h3 {
+  font-size: 17px;
+}
+.list-view .area-card p,
+.list-view .card-detail {
+  font-size: 13px;
+  color: #a1b7a8;
+}
+.list-view .card-category {
+  font-size: 12px;
+}
+@media (max-width: 1150px) and (min-width: 761px) {
+  .area-card {
+    width: 235px;
+    left: clamp(119px, var(--x), calc(100% - 119px));
+  }
+  .area-card h3 {
+    font-size: 14px;
+  }
+  .brain-center {
+    width: 260px;
+    top: 27%;
+  }
+  .brain-svg {
+    width: 260px;
+    height: 260px;
+  }
+  .orbit-one {
+    width: 260px;
+    height: 260px;
+  }
+  .orbit-two {
+    width: 300px;
+    height: 300px;
+  }
+  .knowledge-map {
+    height: 850px;
+  }
+  .card-detail {
+    font-size: 10px;
+  }
+}
+@media (max-width: 760px) {
+  .site-header {
+    height: auto;
+    min-height: 90px;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 22px;
+  }
+  .site-header nav {
+    gap: 22px;
+    height: 30px;
+  }
+  .site-header nav a {
+    font-size: 13px;
+  }
+  .header-caption {
+    display: none;
+  }
+  .home-intro h1 {
+    font-size: 40px;
+  }
+  .home-intro p {
+    font-size: 16px;
+  }
+  .intro-meta {
+    font-size: 12px;
+    gap: 10px;
+  }
+  .eyebrow {
+    font-size: 10px;
+  }
+  .section-title h2 {
+    font-size: 20px;
+  }
+  .category-filters button {
+    font-size: 12px;
+    padding: 9px;
+  }
+  .favorites-filter {
+    font-size: 12px;
+  }
+  .filter-row {
+    flex-wrap: wrap;
+  }
+  .search-box {
+    width: auto;
+  }
+  .search-box input {
+    font-size: 16px;
+  }
+  .map-controls {
+    align-items: flex-start;
+    font-size: 12px;
+  }
+  .map-controls span {
+    max-width: 60%;
+    line-height: 1.6;
+  }
+  .map-controls button {
+    font-size: 12px;
+  }
+  .knowledge-map {
+    height: auto;
+    margin-bottom: 5px;
+    grid-template-columns: 1fr;
+    padding-top: 290px;
+    gap: 14px;
+  }
+  .brain-center {
+    top: 0;
+    width: 250px;
+    height: 250px;
+  }
+  .brain-svg {
+    width: 250px;
+    height: 250px;
+  }
+  .orbit-one {
+    width: 245px;
+    height: 245px;
+  }
+  .orbit-two {
+    width: 275px;
+    height: 275px;
+  }
+  .brain-label {
+    font-size: 19px;
+  }
+  .brain-subtitle {
+    font-size: 9px;
+  }
+  .area-card {
+    width: auto;
+    left: auto;
+  }
+  .area-link {
+    flex-direction: row;
+    min-height: 100px;
+    padding: 20px 30px 10px 18px;
+  }
+  .area-card h3 {
+    font-size: 17px;
+  }
+  .area-card .area-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .card-category {
+    font-size: 12px;
+  }
+  .card-detail {
+    font-size: 12px;
+  }
+  .connect-button {
+    margin-left: 70px;
+    font-size: 13px;
+  }
+  .knowledge-map.list-view {
+    grid-template-columns: 1fr;
+  }
+  .list-view .area-link {
+    padding: 20px 30px 12px 18px;
+  }
+  .map-caption {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .connection-inspector {
+    grid-template-columns: 1fr auto;
+    padding: 22px;
+    gap: 20px;
+  }
+  .connection-chips {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .feature-panel h2 {
+    font-size: 17px;
+  }
+  .feature-panel p {
+    font-size: 14px;
+  }
+  .feature-panel {
+    gap: 12px;
+  }
+  .feature-panel .eyebrow {
+    font-size: 10px;
+  }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .personal-note p,
+  .personal-note p span {
+    font-size: 12px;
+  }
+  .site-footer {
+    font-size: 11px;
+  }
+  .detail-hero {
+    padding: 26px 20px;
+  }
+  .detail-hero h1 {
+    font-size: 34px;
+  }
+  .detail-emblem {
+    display: none;
+  }
+  .detail-hero p {
+    font-size: 16px;
+  }
+  .detail-meta {
+    font-size: 12px;
+  }
+  .module-content > p {
+    font-size: 17px;
+  }
+  .module-content h2 {
+    font-size: 28px;
+  }
+  .module-nav button {
+    font-size: 15px;
+  }
+  .collection-intro {
+    font-size: 16px;
+  }
+  .book-cover {
+    width: 75px;
+  }
+  .book-card {
+    padding: 18px;
+    gap: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neural-mesh path,
+  .neural-sparks circle {
+    animation: none;
+  }
+}
