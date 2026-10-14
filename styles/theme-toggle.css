@@ -19,6 +19,14 @@
 .theme-toggle:hover {
   border-color: var(--olive, #687a4b);
 }
+:root {
+  --mobile-signal: #6a9d69;
+  --mobile-signal-soft: #6a9d6966;
+}
+html[data-theme="dark"] {
+  --mobile-signal: #64ffaf;
+  --mobile-signal-soft: #25e58566;
+}
 html[data-theme="light"] {
   color-scheme: light;
 }
@@ -179,6 +187,79 @@ html[data-theme="light"] .case-study li {
   padding: 5px 0;
 }
 @media (max-width: 760px) {
+  .knowledge-map:not(.list-view) {
+    padding-left: 29px;
+  }
+  .knowledge-map:not(.list-view)::before,
+  .knowledge-map:not(.list-view)::after {
+    content: "";
+    position: absolute;
+    top: 282px;
+    bottom: 50px;
+    left: 13px;
+    width: 2px;
+    pointer-events: none;
+  }
+  .knowledge-map:not(.list-view)::before {
+    background: var(--mobile-signal-soft);
+    box-shadow: 0 0 14px var(--mobile-signal-soft);
+  }
+  .knowledge-map:not(.list-view)::after {
+    background: linear-gradient(
+      transparent 0%,
+      var(--mobile-signal) 50%,
+      transparent 100%
+    );
+    background-size: 2px 125px;
+    animation: mobile-stream 3.2s linear infinite;
+    filter: drop-shadow(0 0 6px var(--mobile-signal));
+  }
+  .knowledge-map:not(.list-view) .brain-center::after {
+    content: "";
+    position: absolute;
+    top: 229px;
+    right: calc(50% + 5px);
+    height: 62px;
+    width: calc(50vw - 47px);
+    border-bottom: 2px solid var(--mobile-signal-soft);
+    border-left: 2px solid var(--mobile-signal-soft);
+    border-radius: 0 0 0 24px;
+    pointer-events: none;
+  }
+  .knowledge-map:not(.list-view) .area-card {
+    overflow: visible;
+    animation: mobile-card-breathe 4.5s ease-in-out infinite;
+    animation-delay: var(--signal-delay, 0s);
+  }
+  .knowledge-map:not(.list-view) .area-card::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 5px);
+    left: -21px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--mobile-signal);
+    border-radius: 50%;
+    background: var(--paper, #faf9f5);
+    box-shadow:
+      0 0 0 4px var(--mobile-signal-soft),
+      0 0 15px var(--mobile-signal);
+    animation: mobile-node-pulse 2.8s ease-in-out infinite;
+    animation-delay: var(--signal-delay, 0s);
+  }
+  .knowledge-map:not(.list-view) .area-card::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -13px;
+    width: 13px;
+    border-top: 1px solid var(--mobile-signal-soft);
+  }
+  .knowledge-map.motion-paused::after,
+  .knowledge-map.motion-paused .area-card,
+  .knowledge-map.motion-paused .area-card::before {
+    animation-play-state: paused;
+  }
   .header-actions {
     margin-left: auto;
   }
@@ -202,5 +283,37 @@ html[data-theme="light"] .case-study li {
   html[data-theme="light"] .connection-chips {
     grid-column: 1/-1;
     grid-row: 2;
+  }
+}
+@keyframes mobile-stream {
+  to {
+    background-position: 0 125px;
+  }
+}
+@keyframes mobile-node-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+@keyframes mobile-card-breathe {
+  0%,
+  100% {
+    border-color: var(--border, #dfe5db);
+  }
+  50% {
+    border-color: var(--mobile-signal-soft);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-map:not(.list-view)::after,
+  .knowledge-map:not(.list-view) .area-card,
+  .knowledge-map:not(.list-view) .area-card::before {
+    animation: none;
   }
 }

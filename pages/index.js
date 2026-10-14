@@ -235,6 +235,7 @@ export default function Home() {
                       "--area-tint": area.tint,
                       "--x": `${x}%`,
                       "--y": `${y}%`,
+                      "--signal-delay": `${index * 0.32}s`,
                     }}
                     className={`area-card ${!visible.includes(area) ? "hidden-card" : ""} ${hovered === area.slug ? "hovered" : ""} ${selected === area.slug ? "selected-node" : ""} ${selectedArea?.related.includes(area.slug) ? "related-node" : ""}`}
                     onMouseEnter={() => setHovered(area.slug)}
