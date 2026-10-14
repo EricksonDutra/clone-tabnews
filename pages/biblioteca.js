@@ -2,16 +2,39 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { areas } from "../data/studies";
+import {
+  resolveLibraryBooks,
+  readingProgress,
+  readingSource,
+} from "../data/library";
 import { Footer, Header, Icon, useSaved } from "../components/StudyUI";
 
 export default function Library() {
-  const [books, setBooks] = useSaved("connections-books", []);
+  const [legacyBooks] = useSaved("connections-books", []);
+  const [library, saveLibrary] = useSaved("connections-library-v2", null);
+  const books = resolveLibraryBooks(library, legacyBooks);
+  const setBooks = (next) => saveLibrary({ books: next });
   const [filter, setFilter] = useState("Todos");
+  const [query, setQuery] = useState("");
+  const [areaFilter, setAreaFilter] = useState("Todas");
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(null);
   const [removing, setRemoving] = useState(null);
   const visible = books.filter(
-    (book) => filter === "Todos" || book.status === filter,
+    (book) =>
+      (filter === "Todos" || book.status === filter) &&
+      (areaFilter === "Todas" || book.area === areaFilter) &&
+      `${book.title} ${book.author} ${book.category || ""}`
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .includes(
+          query
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim(),
+        ),
   );
   function submit(event) {
     event.preventDefault();
@@ -19,9 +42,17 @@ export default function Library() {
       ...form,
       title: form.title.trim(),
       author: form.author.trim(),
-      id: editing || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      pagesRead:
+        form.pagesRead === "" || form.pagesRead == null
+          ? null
+          : Number(form.pagesRead),
+      pagesTotal:
+        form.pagesTotal === "" || form.pagesTotal == null
+          ? null
+          : Number(form.pagesTotal),
+      id: editing || crypto.randomUUID(),
     };
-    if (!book.title || !book.author) return;
+    if (!book.title) return;
     setBooks(
       editing
         ? books.map((item) => (item.id === editing ? book : item))
@@ -46,8 +77,8 @@ export default function Library() {
               <em>última página.</em>
             </h1>
             <p className="collection-intro">
-              Registre livros, preserve ideias e conecte leituras ao que você
-              estuda.
+              Livros concluídos e em andamento, ideias para preservar e conexões
+              com o que você estuda.
             </p>
           </div>
           <button
@@ -60,13 +91,47 @@ export default function Library() {
                 status: "Quero ler",
                 area: areas[0].slug,
                 notes: "",
+                pagesRead: "",
+                pagesTotal: "",
               });
             }}
           >
             + Adicionar livro
           </button>
         </div>
-        <div className="library-filters">
+        <p className="library-origin">
+          Leituras reunidas a partir da sua página{" "}
+          <a href={readingSource} target="_blank" rel="noopener noreferrer">
+            Leitura no Notion ↗
+          </a>
+          . Atualize aqui o momento e o progresso de cada livro.
+        </p>
+        <div className="library-search">
+          <label>
+            Buscar na estante
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Título, autor ou categoria"
+            />
+          </label>
+          <label>
+            Área de estudo
+            <select
+              value={areaFilter}
+              onChange={(event) => setAreaFilter(event.target.value)}
+            >
+              <option value="Todas">Todas as áreas</option>
+              {areas.map((area) => (
+                <option key={area.slug} value={area.slug}>
+                  {area.title}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="library-filters" aria-label="Momento da leitura">
           {["Todos", "Quero ler", "Lendo", "Lido"].map((status) => (
             <button
               key={status}
@@ -119,9 +184,9 @@ export default function Library() {
                 <label>
                   Autor ou autora
                   <input
-                    required
                     maxLength={180}
                     value={form.author}
+                    placeholder="Autor não informado"
                     onChange={(event) =>
                       setForm({ ...form, author: event.target.value })
                     }
@@ -155,6 +220,33 @@ export default function Library() {
                     ))}
                   </select>
                 </label>
+                <label>
+                  Páginas lidas
+                  <input
+                    type="number"
+                    min="0"
+                    step="1"
+                    max={
+                      Number(form.pagesTotal) > 0 ? form.pagesTotal : undefined
+                    }
+                    value={form.pagesRead ?? ""}
+                    onChange={(event) =>
+                      setForm({ ...form, pagesRead: event.target.value })
+                    }
+                  />
+                </label>
+                <label>
+                  Total de páginas
+                  <input
+                    type="number"
+                    min={Math.max(1, Number(form.pagesRead) || 1)}
+                    step="1"
+                    value={form.pagesTotal ?? ""}
+                    onChange={(event) =>
+                      setForm({ ...form, pagesTotal: event.target.value })
+                    }
+                  />
+                </label>
               </div>
               <label>
                 Ideias, citações e aplicações
@@ -178,6 +270,7 @@ export default function Library() {
             {visible.map((book) => {
               const area =
                 areas.find((item) => item.slug === book.area) || areas[0];
+              const progress = readingProgress(book);
               return (
                 <article
                   className="book-card"
@@ -194,7 +287,50 @@ export default function Library() {
                   <div className="book-content">
                     <span className="eyebrow">{book.status}</span>
                     <h2>{book.title}</h2>
-                    <p>{book.author}</p>
+                    <p>{book.author || "Autor não informado"}</p>
+                    {book.category && (
+                      <span className="book-category">{book.category}</span>
+                    )}
+                    {book.rating && (
+                      <p
+                        aria-label={`Avaliação no Notion: ${book.rating.length} estrelas`}
+                      >
+                        {book.rating}
+                      </p>
+                    )}
+                    <div className="book-progress">
+                      {progress !== null ? (
+                        <>
+                          <div>
+                            <span>
+                              {book.pagesRead} de {book.pagesTotal} páginas
+                            </span>
+                            <strong>{progress}%</strong>
+                          </div>
+                          <progress
+                            max="100"
+                            value={progress}
+                            aria-label={`Progresso de ${book.title}`}
+                          />
+                        </>
+                      ) : (
+                        <p>
+                          Progresso em páginas não informado
+                          {book.pagesTotal
+                            ? ` · ${book.pagesTotal} páginas no total`
+                            : ""}
+                          .
+                        </p>
+                      )}
+                    </div>
+                    {(book.startedAt || book.finishedAt) && (
+                      <p className="book-dates">
+                        {book.startedAt &&
+                          `Início: ${new Date(`${book.startedAt}T00:00:00Z`).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`}
+                        {book.finishedAt &&
+                          ` · Término: ${new Date(`${book.finishedAt}T00:00:00Z`).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`}
+                      </p>
+                    )}
                     <Link
                       className="book-connection"
                       href={`/estudos/${area.slug}`}
@@ -203,6 +339,16 @@ export default function Library() {
                       {area.short}
                     </Link>
                     {book.notes && <p className="book-notes">{book.notes}</p>}
+                    {book.sourceUrl && (
+                      <a
+                        className="book-source"
+                        href={book.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Registro original no Notion ↗
+                      </a>
+                    )}
                     <div className="book-actions">
                       <button
                         onClick={() => {
@@ -249,7 +395,7 @@ export default function Library() {
             </h2>
             <p>
               {books.length
-                ? "Mude o filtro ou adicione uma leitura."
+                ? "Ajuste a busca e os filtros ou adicione uma leitura."
                 : "Adicione os livros que já leu, está lendo ou quer conhecer. Cada leitura pode se conectar a uma área de estudo."}
             </p>
           </div>
@@ -257,9 +403,9 @@ export default function Library() {
         <div className="info-strip">
           <Icon name="bookmark" />
           <p>
-            Esta biblioteca é pessoal e fica salva neste navegador. As leituras
-            ainda não são sincronizadas entre dispositivos ou compartilhadas com
-            alunos.
+            A estante inicial reúne suas leituras do Notion. Edições, novos
+            livros e exclusões ficam salvos neste navegador, sem sincronização
+            com o Notion ou entre dispositivos.
           </p>
         </div>
       </main>
